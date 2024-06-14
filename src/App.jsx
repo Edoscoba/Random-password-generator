@@ -1,68 +1,73 @@
 import React, { useState } from 'react'
 
 const App = () => {
+  // Define and initialize state using the useState hook
+  const [options, setOptions] = useState({
+    length: 10,                // Length of the password, initially set to 10
+    uppercase: false,          // Whether to include uppercase letters, initially set to false
+    lowercase: false,          // Whether to include lowercase letters, initially set to false
+    number: false,             // Whether to include numbers, initially set to false
+    symbols: false,            // Whether to include symbols, initially set to false
+    isError: false,            // Error state, initially set to false
+  });
 
-    const [options, setOptions] = useState({
-      length: 10,
-      uppercase: false,
-      lowercase: false,
-      number: false,
-      symbols: false,
-      isError: false,
-    });
-  
-    const [isError, setIsError] = useState(false);
-    const [generatedPassword, setGeneratedPassword] = useState("");
-  
-    // Rest of the code
+  // Initialize state variables for error handling and generated password
+  const [isError, setIsError] = useState(false);
+  const [generatedPassword, setGeneratedPassword] = useState("");
 
-    const generateRandomPassword = () => {
-      if (
-        !options?.uppercase &&
-        !options?.lowercase &&
-        !options?.number &&
-        !options?.symbols
-      ) {
-        setIsError(true);
-        
-      }
-  
-      setIsError(false);
-  
-      const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-      const numberChars = "0123456789";
-      const symbolChars = '!@#$%^&*()_+-={}[]|:;"<>,.?/~';
-  
-      let passwordChars = "";
-      let password = "";
-  
-      if (options.uppercase) {
-        passwordChars += uppercaseChars;
-      }
-  
-      if (options.lowercase) {
-        passwordChars += lowercaseChars;
-      }
-  
-      if (options.number) {
-        passwordChars += numberChars;
-      }
-  
-      if (options.symbols) {
-        passwordChars += symbolChars;
-      }
-  
-      const passwordLength = options.length;
-  
-      for (let i = 0; i < passwordLength; i++) {
-        const randomIndex = Math.floor(Math.random() * passwordChars.length);
-        password += passwordChars[randomIndex];
-      }
-  
-      setGeneratedPassword(password);
-    };
-  
+  // Function to generate a random password
+  const generateRandomPassword = () => {
+    // Check if none of the options for password generation are selected
+    // Previous code lines...
+
+    if (
+      !options?.uppercase &&
+      !options?.lowercase &&
+      !options?.number &&
+      !options?.symbols
+    ) {
+      setIsError(true);
+      return;
+    }
+
+
+    setIsError(false);         // Reset isError state to false
+
+    // Define character sets for each type of character to include in the password
+    const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+    const numberChars = "0123456789";
+    const symbolChars = '!@#$%^&*()_+-={}[]|:;"<>,.?/~';
+
+    let passwordChars = "";    // Initialize a string to store all possible characters for the password
+    let password = "";         // Initialize an empty string to store the generated password
+
+    // Check each option and concatenate corresponding character set to passwordChars
+    if (options.uppercase) {
+      passwordChars += uppercaseChars;
+    }
+    if (options.lowercase) {
+      passwordChars += lowercaseChars;
+    }
+    if (options.number) {
+      passwordChars += numberChars;
+    }
+    if (options.symbols) {
+      passwordChars += symbolChars;
+    }
+
+    const passwordLength = options.length;  // Get the desired length of the password
+
+    // Generate the password by randomly selecting characters from passwordChars
+    for (let i = 0; i < passwordLength; i++) {
+      const randomIndex = Math.floor(Math.random() * passwordChars.length);  // Generate a random index within the range of passwordChars
+      password += passwordChars[randomIndex];  // Append the randomly selected character to the password string
+    }
+
+    setGeneratedPassword(password);  // Set the generated password in the state variable
+  }
+
+
   return (
     <div className="container">
       <div className="card">
