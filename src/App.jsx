@@ -24,7 +24,7 @@ const App = () => {
         !options?.symbols
       ) {
         setIsError(true);
-        return;
+        
       }
   
       setIsError(false);
